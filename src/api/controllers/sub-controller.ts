@@ -21,15 +21,7 @@ export class SubscriberController implements ISubscriberController {
     try {
       const { queue } = req.body as RequestBody;
 
-      await this.SubscriberService.consume(
-        queue,
-        (message: ConsumeMessage | null) => {
-          if (message !== null) {
-            const content = JSON.stringify(message);
-            console.log("Received message:", content);
-          }
-        }
-      );
+      await this.SubscriberService.consume(queue);
       res.status(200).send("Message subscribed successfully");
     } catch (error) {
       console.error("Error subscribing message:", error);

@@ -17,12 +17,19 @@ export class SubscriberService {
     }
   }
 
-  async consume(
-    queue: string,
-    callback: (message: ConsumeMessage | null) => void
-  ) {
+  async consume(queue: string) {
     if (!this.channel) await this.init();
 
-    this.channel!.consume(queue, callback);
+    await this.channel!.consume(
+      queue,
+      (message: ConsumeMessage | null): void => {
+        if (message !== null) {
+          const contentString = message.content.toString();
+
+          console.log("Received message:", contentString);
+          this.channel?.ack(message);
+        }
+      }
+    );
   }
 }
