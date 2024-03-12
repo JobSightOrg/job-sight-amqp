@@ -3,7 +3,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 
 type RequestBody = {
   queue: string;
-  message: string;
+  payload: string;
 };
 
 interface IPublisherController {
@@ -19,13 +19,13 @@ export class PublisherController implements IPublisherController {
 
   publishMessage = async (req: FastifyRequest, res: FastifyReply) => {
     try {
-      const { queue, message } = req.body as RequestBody;
+      const { queue, payload } = req.body as RequestBody;
 
-      await this.PublisherService.publish(queue, message);
-      res.status(200).send("Message published successfully");
+      await this.PublisherService.publish(queue, payload);
+      res.status(200).send("Payload published successfully");
     } catch (error) {
-      console.error("Error publishing message:", error);
-      res.status(500).send("Error publishing message");
+      console.error("Error publishing payload:", error);
+      res.status(500).send("Error publishing payload");
     }
   };
 }

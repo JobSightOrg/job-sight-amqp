@@ -22,10 +22,10 @@ export class SubscriberController implements ISubscriberController {
       const { queue } = req.body as RequestBody;
 
       await this.SubscriberService.consume(queue);
-      res.status(200).send("Message subscribed successfully");
+      res.status(200).send("payload subscribed successfully");
     } catch (error) {
-      console.error("Error subscribing message:", error);
-      res.status(500).send("Error subscribing message");
+      console.error("Error subscribing payload:", error);
+      res.status(500).send("Error subscribing payload");
     }
   };
 }

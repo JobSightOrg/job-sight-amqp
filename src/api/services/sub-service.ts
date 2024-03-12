@@ -22,12 +22,12 @@ export class SubscriberService {
 
     await this.channel!.consume(
       queue,
-      (message: ConsumeMessage | null): void => {
-        if (message !== null) {
-          const contentString = message.content.toString();
+      (payload: ConsumeMessage | null): void => {
+        if (payload !== null) {
+          const contentString = payload.content.toString();
 
-          console.log("Received message:", contentString);
-          this.channel?.ack(message);
+          console.log("Received payload:", contentString);
+          this.channel?.ack(payload);
         }
       }
     );

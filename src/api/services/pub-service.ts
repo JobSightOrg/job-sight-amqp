@@ -17,13 +17,13 @@ export class PublisherService {
     }
   }
 
-  async publish(queue: string, message: string) {
+  async publish(queue: string, payload: string) {
     if (!this.channel) await this.init();
 
     await this.channel!.assertQueue(queue, {
       durable: true,
       autoDelete: false,
     });
-    this.channel!.sendToQueue(queue, Buffer.from(message));
+    this.channel!.sendToQueue(queue, Buffer.from(payload));
   }
 }
